@@ -8,6 +8,13 @@ services:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/userservice
     depends_on:
       - mongo
+    networks:
+      - dapr-network
+    labels:
+      - "dapr.io/enabled=true"
+      - "dapr.io/app-id=user-service"
+      - "dapr.io/app-port=8080"
+
 
   news-service:
     build: ./news-service
@@ -20,6 +27,12 @@ services:
       - kafka
       - mongo
       - user-service
+    networks:
+      - dapr-network
+    labels:
+      - "dapr.io/enabled=true"
+      - "dapr.io/app-id=news-service"
+      - "dapr.io/app-port=8080"
 
   ai-service:
     build: ./ai-service
@@ -29,6 +42,12 @@ services:
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
       - kafka
+    networks:
+      - dapr-network
+    labels:
+      - "dapr.io/enabled=true"
+      - "dapr.io/app-id=ai-service"
+      - "dapr.io/app-port=8080"
 
   email-service:
     build: ./email-service
@@ -38,6 +57,12 @@ services:
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
       - kafka
+    networks:
+      - dapr-network
+    labels:
+      - "dapr.io/enabled=true"
+      - "dapr.io/app-id=email-service"
+      - "dapr.io/app-port=8080"
 
   kafka:
     image: confluentinc/cp-kafka:6.2.0
@@ -48,17 +73,25 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     depends_on:
       - zookeeper
+    networks:
+      - dapr-network
 
   zookeeper:
     image: confluentinc/cp-zookeeper:6.2.0
     ports:
       - "2182:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - dapr-network
 
   mongo:
     image: mongo:4.4.6
     ports:
       - "27017:27017"
+    networks:
+      - dapr-network
 
 networks:
-  default:
+  dapr-network:
     driver: bridge

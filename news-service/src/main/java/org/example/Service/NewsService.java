@@ -1,5 +1,8 @@
 package org.example.Service;
 
+import io.dapr.client.DaprClient;
+import io.dapr.client.DaprClientBuilder;
+import io.dapr.client.domain.HttpExtension;
 import org.example.Model.NewsResponse;
 import org.example.Model.Preferences;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,8 @@ public class NewsService {
     @Value("${user.preferences.url}")
     private String userPreferencesUrl;
 
+    private final DaprClient daprClient = new DaprClientBuilder().build();
+
     /**
      * Fetches user preferences, fetches news based on those preferences,
      * picks interesting news using AI service, generates a summary for the news,
@@ -54,7 +59,8 @@ public class NewsService {
         logger.info("Fetching user preferences for userId: {}", userId);
         try {
             // Fetch user preferences
-            Preferences preferences = restTemplate.getForObject(userPreferencesUrl + userId, Preferences.class);
+            String preferencesUrl = String.format("%s/users/preferences/%s", userPreferencesUrl, userId);
+            Preferences preferences = daprClient.invokeMethod("user-service", preferencesUrl, null, HttpExtension.GET, Preferences.class).block();
             if (preferences == null) {
                 logger.warn("No preferences found for userId: {}", userId);
                 return;

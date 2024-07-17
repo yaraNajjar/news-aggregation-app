@@ -1,13 +1,9 @@
 package org.example.Service;
 
 import org.example.Model.NewsArticle;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,5 +1,7 @@
 package org.example.Service;
 
+import io.dapr.client.DaprClient;
+import io.dapr.client.DaprClientBuilder;
 import org.example.Model.User;
 import org.example.Model.Preferences;
 import org.example.Repository.UserRepository;
@@ -23,6 +25,8 @@ public class UserService {
 
     @Value("${user.service.url}")
     private String userServiceUrl;
+
+    private final DaprClient daprClient = new DaprClientBuilder().build();
 
     /**
      * Registers a new user.

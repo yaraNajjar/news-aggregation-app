@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "dcbffb46-ac81-4a03-97af-1e60acd65dcb",
+		"name": "News Service API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32310874"
+	},
+	"item": [
+		{
+			"name": "user-service",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"1\",\r\n  \"username\": \"john\",\r\n  \"email\": \"john@example.com\",\r\n  \"password\": \"johnpassword\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/users/register"
+					},
+					"response": []
+				},
+				{
+					"name": "create-preferences",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \"id\": \"1\",\r\n    \"userId\": \"1\",\r\n    \"categories\": [\"technology\", \"science\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/users/create-preferences"
+					},
+					"response": []
+				},
+				{
+					"name": "get-preference",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "get-email",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update-preferences",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "news-service",
+			"item": [
+				{
+					"name": "fetch-news",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/news/fetch-news?userId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"news",
+								"fetch-news"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AI-service",
+			"item": [
+				{
+					"name": "pick-interesting-news",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"news\": \"news: Latest news based on preferences:\\nTitle: OpenAI Startup Fund & Arianna Huffington's Thrive Global Create New Company, Thrive AI Health, To Launch Hyper-Personalized AI Health Coach, Link: https://www.prnewswire.co.uk/news-releases/openai-startup-fund--arianna-huffingtons-thrive-global-create-new-company-thrive-ai-health-to-launch-hyper-personalized-ai-health-coach-302190603.html\\nTitle: OpenAI Startup Fund & Arianna Huffington's Thrive Global Create New Company, Thrive AI Health, To Launch Hyper-Personalized AI Health Coach, Link: https://www.wvnews.com/news/around_the_web/partners/pr_newswire/subject/new_products_services/openai-startup-fund-arianna-huffingtons-thrive-global-create-new-company-thrive-ai-health-to-launch/article_a1a497e6-4309-56e2-89c1-cf424aa8bc65.html\\nTitle: Hardware Security Modules market is expected to be worth USD 1.27 billion. Hardware Security Modules Market is expected to grow at a 11.8 percentage, Link: https://www.openpr.com/news/3569666hardware-security-modules-market-is-expected-to-be-worth-usd-1-27\\nTitle: 'I Will Take My Business To Costco' - Sam's Club Members Threaten Because Major Perk Ends On Aug.19, Link: https://www.ibtimes.co.uki-will-take-my-business-costco-sams-club-members-threaten-because-major-perk-ends-aug-19-17252992\",\r\n\r\n  \"preferences\": \"Business,AI\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8084/ai/pickInterestingNews"
+					},
+					"response": []
+				},
+				{
+					"name": "generate-summary",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"news\": \"news: Latest news based on preferences:\\nTitle: OpenAI Startup Fund & Arianna Huffington's Thrive Global Create New Company, Thrive AI Health, To Launch Hyper-Personalized AI Health Coach, Link: https://www.prnewswire.co.uk/news-releases/openai-startup-fund--arianna-huffingtons-thrive-global-create-new-company-thrive-ai-health-to-launch-hyper-personalized-ai-health-coach-302190603.html\\nTitle: OpenAI Startup Fund & Arianna Huffington's Thrive Global Create New Company, Thrive AI Health, To Launch Hyper-Personalized AI Health Coach, Link: https://www.wvnews.com/news/around_the_web/partners/pr_newswire/subject/new_products_services/openai-startup-fund-arianna-huffingtons-thrive-global-create-new-company-thrive-ai-health-to-launch/article_a1a497e6-4309-56e2-89c1-cf424aa8bc65.html\\n\"\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8084/ai/generateSummary"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "email-service",
+			"item": [
+				{
+					"name": "send email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/email/send?userId=2&text=summary news",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"email",
+								"send"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "2"
+								},
+								{
+									"key": "text",
+									"value": "summary news"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
